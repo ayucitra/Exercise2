@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>JSDC - Exercise 2</title>
+
+    <link rel="stylesheet" href="bootstrap.min.css">
+
+    <style>
+        #main_div {
+            margin-top : 10%;
+        }
+
+        #calculator {
+            border : 1px solid #dac6c6;
+            padding : 2%;
+            border-radius : 6px;
+        }
+
+        .col, .col-1, .col-10, .col-11, .col-12, .col-2, .col-3, .col-4, .col-5, .col-6, .col-7, .col-8, .col-9, .col-auto, .col-lg, .col-lg-1, .col-lg-10, .col-lg-11, .col-lg-12, .col-lg-2, .col-lg-3, .col-lg-4, .col-lg-5, .col-lg-6, .col-lg-7, .col-lg-8, .col-lg-9, .col-lg-auto, .col-md, .col-md-1, .col-md-10, .col-md-11, .col-md-12, .col-md-2, .col-md-3, .col-md-4, .col-md-5, .col-md-6, .col-md-7, .col-md-8, .col-md-9, .col-md-auto, .col-sm, .col-sm-1, .col-sm-10, .col-sm-11, .col-sm-12, .col-sm-2, .col-sm-3, .col-sm-4, .col-sm-5, .col-sm-6, .col-sm-7, .col-sm-8, .col-sm-9, .col-sm-auto, .col-xl, .col-xl-1, .col-xl-10, .col-xl-11, .col-xl-12, .col-xl-2, .col-xl-3, .col-xl-4, .col-xl-5, .col-xl-6, .col-xl-7, .col-xl-8, .col-xl-9, .col-xl-auto {
+            position: relative;
+            width: 100%;
+            min-height: 1px;
+            padding: 2px;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="card text-center" id="main_div">
+            <div class="card-header">
+                Calculator
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-sm-3" ></div>
+                    <div class="col-sm-3" id="calculator" >
+                        <div class="row">
+                            <div class="col-sm form-group">
+                                <input type="text" id="text" value="0" class="form-control text-right font-weight-bold" readonly>
+                            </div>
+                        </div>
+                        <div class="row"><div class="col-sm"><hr></div></div>
+                        <div class="row">
+                            <div class="col-sm">
+                                <button onclick="klik_angka(this)" class="btn btn-primary btn-block">1</button>
+                            </div>
+                            <div class="col-sm">
+                                <button onclick="klik_angka(this)" class="btn btn-primary btn-block">2</button>
+                            </div>
+                            <div class="col-sm">
+                                <button onclick="klik_angka(this)" class="btn btn-primary btn-block">3</button>
+                            </div>
+                            <div class="col-sm">
+                                <button onclick="klik_operator(this)" class="btn btn-warning btn-block" title="Tambah">+</button>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm">
+                                <button onclick="klik_angka(this)" class="btn btn-primary btn-block">4</button>
+                            </div>
+                            <div class="col-sm">
+                                <button onclick="klik_angka(this)" class="btn btn-primary btn-block">5</button>
+                            </div>
+                            <div class="col-sm">
+                                <button onclick="klik_angka(this)" class="btn btn-primary btn-block">6</button>
+                            </div>
+                            <div class="col-sm">
+                                <button onclick="klik_operator(this)" class="btn btn-warning btn-block" title="Kurang">-</button>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm">
+                                <button onclick="klik_angka(this)" class="btn btn-primary btn-block">7</button>
+                            </div>
+                            <div class="col-sm">
+                                <button onclick="klik_angka(this)" class="btn btn-primary btn-block">8</button>
+                            </div>
+                            <div class="col-sm">
+                                <button onclick="klik_angka(this)" class="btn btn-primary btn-block">9</button>
+                            </div>
+                            <div class="col-sm">
+                                <button onclick="klik_operator(this)" class="btn btn-warning btn-block" title="Kali">*</button>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm">
+                                <button onclick="klik_clear()" class="btn btn-outline-secondary btn-block" title="Bersihkan">Clear</button>
+                            </div>
+                            <div class="col-sm">
+                                <button onclick="klik_angka(this)" class="btn btn-primary btn-block">0</button>
+                            </div>
+                            <div class="col-sm">
+                                <button onclick="klik_delete()" class="btn btn-outline-danger btn-block" title="Hapus">&#8592;</button>
+                            </div>
+                            <div class="col-sm">
+                                <button onclick="klik_operator(this)" class="btn btn-warning btn-block" title="Bagi">/</button>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm">
+                                <button onclick="klik_hasilakhir()" class="btn btn-info btn-block">=</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <textarea id="log" class="form-control" style="margin-left:10px;" rows="14" placeholder="log..." readonly></textarea>
+                    </div>
+                    <div class="col-sm-3">
+
+                    </div>
+                </div>
+            </div>
+            <div class="card-footer">
+                Javascript Development Course - Exercise 2
+            </div>
+        </div>
+    </div>
+
+
+    <script>
+        var text = '';
+        var hasil = 0;
+        var karakter_terakhir = '';
+
+        function klik_angka(e)
+        {
+            var angka = e.innerHTML;
+
+            if(text === '' || karakter_terakhir === ''){
+                text = angka;
+            } else {
+                text += angka;
+            }
+            document.getElementById('text').value = text;
+            karakter_terakhir = parseInt(angka);
+        }
+
+
+        function klik_operator(e)
+        {
+            var operator = e.innerHTML;
+            var title = e.title;
+            
+            if(text !== ''){
+                if(typeof karakter_terakhir == "number" || text == hasil){
+                    text += operator;
+                } else if(karakter_terakhir != '' && karakter_terakhir != operator) {
+                    t = text.slice(0, (text.length - 1));
+                    text = t+operator;
+                }
+            } else {
+                text += '0'+operator;
+            }
+
+            document.getElementById('text').value = text;
+            karakter_terakhir = operator;
+        }
+
+        function klik_hasilakhir()
+        {   
+            text = document.getElementById('text').value;
+            if(typeof karakter_terakhir != "number"){
+                text += '0';
+            }
+
+            hasil = eval(text);
+
+            var log = document.getElementById('log').value;
+            document.getElementById('log').value = log+text+'='+hasil+'\n';
+            document.getElementById('text').value = hasil;
+
+            text = hasil;
+            karakter_terakhir = '';
+        }
+
+        function klik_clear()
+        {
+            text = '';
+            karakter_terakhir = '';
+
+            document.getElementById('text').value = 0;
+            document.getElementById('log').value = '';
+        }
+
+
+        function klik_delete()
+        {
+            t = 0;
+            
+            if(text.length-1 > 1){
+                t = text.slice(0, (text.length - 1));
+            }
+
+            text = t;
+            document.getElementById('text').value = t;
+        }
+
+    </script>
+</body>
+</html>
