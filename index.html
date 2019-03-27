@@ -162,17 +162,19 @@
 
         function klik_hasilakhir()
         {   
-            text = document.getElementById('text').value;
-            if(typeof karakter_terakhir != "number"){
-                text += '0';
+            if(karakter_terakhir !== ''){
+                text = document.getElementById('text').value;
+                if(typeof karakter_terakhir != "number"){
+                    text += '0';
+                }
+
+                hasil = eval(text);
+
+                var log = document.getElementById('log').value;
+                document.getElementById('log').value = log+text+'='+hasil+'\n';
+                document.getElementById('text').value = hasil;
             }
-
-            hasil = eval(text);
-
-            var log = document.getElementById('log').value;
-            document.getElementById('log').value = log+text+'='+hasil+'\n';
-            document.getElementById('text').value = hasil;
-
+            
             text = hasil;
             karakter_terakhir = '';
         }
